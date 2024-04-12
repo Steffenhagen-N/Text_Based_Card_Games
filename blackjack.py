@@ -4,5 +4,5 @@
 
 game = Card_Game(None)
 
-print("hello from blackjack")
+print("blackjack functional")
 #try to get to 21 without going over

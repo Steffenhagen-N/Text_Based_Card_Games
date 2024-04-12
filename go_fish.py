@@ -4,7 +4,7 @@
 
 game = Card_Game(None)
 
-print("hello from go fish")
+print("go fish functional")
 # try to make as many books as possible
 # 'do you have any (kings, 7's, etc)'
 # the other player must give you their copies

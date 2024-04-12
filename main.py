@@ -73,10 +73,15 @@ class Deck_of_Cards:
         deck_list = []
         for card in self.__deck:
             deck_list.append(card.__repr__())
-        return ", " .join(deck_list)
+        return f"{len(self.__deck)} cards: {", " .join(deck_list)}"
+    
+    def get_deck(self):
+        return self.__deck
 
     # add optioinal shuffle two decks together
-    def shuffle(self):
+    def shuffle(self, target = None):
+        if target != None:
+            target.top_to_deck(self, len(target.get_deck()))
         random.shuffle(self.__deck)
 
     def draw(self):
@@ -124,12 +129,51 @@ class Card_Game:
 # allows for clean game.run() in main()
 blackjack = Card_Game("blackjack.py")
 go_fish = Card_Game("go_fish.py")
+solitaire = Card_Game(None)
+war = Card_Game(None)
 games = [blackjack, go_fish]
 
 def main():
+    print("game status...")
+    print("")
     # this is how specific games will be run by the main file
-    blackjack.run()
+    #blackjack.run()
+    #go_fish.run()
+    for g in games:
+        g.run()
+        
+    print("")
 
-    go_fish.run()
+    print("--- testing new game ---")
+    print("")
+    print("generating deck...")
+    print("")
+    my_game = Card_Game(None)
+    print("--- deck ---")
+    print(my_game.deck)
+    print("")
+    print("shuffling...")
+    print("")
+    my_game.deck.shuffle()
+    print("--- deck ---")
+    print(my_game.deck)
+    print("")
+    print("milling several cards...")
+    my_game.deck.top_to_deck(my_game.graveyard, 10)
+    print("")
+    print("--- deck ---")
+    print(my_game.deck)
+    print("")
+    print("--- graveyard ---")
+    print(my_game.graveyard)
+    print("")
+    print("reshuffling deck and graveyard...")
+    print("")
+    my_game.deck.shuffle(my_game.graveyard)
+    print("--- deck ---")
+    print(my_game.deck)
+    print("")
+    print("--- graveyard ---")
+    print(my_game.graveyard)
 
 main()
