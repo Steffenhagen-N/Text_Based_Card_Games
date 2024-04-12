@@ -35,10 +35,6 @@ class Card:
     def __gt__(self, card):
         if self.rank == card.rank:
             return self.__suit_index > card.__suit_index
-        if self.rank == "Ace":
-            return True
-        if card.rank == "Ace":
-            return False
         return self.__rank_index > card.__rank_index
 
     def __lt__(self, card):
@@ -53,11 +49,12 @@ class Card:
     def __eq__(self, card):
         return self.suit ==card.suit and self.rank == card.rank
 
-# think about adding a top to yard and reshuffle feature
 class Deck_of_Cards:
-    def __init__(self, low = True):
+    def __init__(self):
         self.__deck = []
 
+    # generates a full 52 card deck
+    def generate(self, low = False):
         new_ranks = []
         for r in ranks:
             new_ranks.append(r)
@@ -71,42 +68,39 @@ class Deck_of_Cards:
             for rank in new_ranks:
                 self.__deck.append(Card(suit, rank))
 
+    # prints deck as a single string rather than a list
     def __repr__(self):
         deck_list = []
         for card in self.__deck:
-            deck_list.append(f"{card.rank} of {card.suit}")
+            deck_list.append(card.__repr__())
         return ", " .join(deck_list)
 
+    # add optioinal shuffle two decks together
     def shuffle(self):
         random.shuffle(self.__deck)
 
     def draw(self):
         return self.__deck.pop()
     
-    def top(self, card):
+    def to_top(self, card):
         self.__deck.append(card)
 
-class Graveyard(Deck_of_Cards):
-    def __init__(self):
-        super().__init__()
-        self.__deck.clear()
-
+    def top_to_deck(self, target, value = 1):
+        for i in range(value):
+            target.to_top(self.draw())
     
 # add discard function
 class Player:
     def __init__(self, name):
-        self.__hand = []
+        self.__hand = Deck_of_Cards()
         self.__name = name
 
-    def __repr__(self) -> str:
-        temp_hand = []
-        for card in self.__hand:
-            temp_hand.append(f"{card.rank} of {card.suit}")
-        return f"{self.__name}: {str(", " .join(temp_hand))}"
+    def __repr__(self):
+        return f"{self.__name}: {self.__hand.__repr__()}"
 
     def draw(self, deck, value = 1):
         for i in range(value):
-            self.__hand.append(deck.draw())
+            self.__hand.to_top(deck.draw())
 
     def get_name(self):
         return self.__name
@@ -115,31 +109,37 @@ class Player:
         return self.__hand
         
 class Card_Game:
-    def __init__(self, player1 = "Player 1", player2 = "Dealer", low = True):
-        self.deck = Deck_of_Cards(low)
-        self.graveyard = Graveyard()
-        self.player = Player(player1)
-        self.dealer = Player(player2)
+    def __init__(self,low = True):
+        self.deck = Deck_of_Cards()
+        self.deck.generate()
+        self.graveyard = Deck_of_Cards()
+        self.player = Player("Player 1")
+        self.dealer = Player("The Dealer")
 
     def play(self):
         return ("There is nothing to play...")
 
 def main():
-    my_game = Card_Game()
-    my_game.deck.shuffle()
-    print("--- Deck ---")
-    print("")
-    print(my_game.deck)
-    print("")
-    print("Milling 5 cards...")
-    print("")
-    my_game.deck.mill(my_game.graveyard, 5)
-    print("--- Graveyard ---")
-    print(my_game.graveyard)
-    print("")
-    print("--- Player 1 ---")
-    print("Drawing 5 cards...")
-    my_game.player.draw(my_game.deck, 5)
-    print(my_game.player)
+    #my_game = Card_Game()
+    #my_game.deck.shuffle()
+    #print("--- Deck ---")
+    #print("")
+    #print(my_game.deck)
+    #print("")
+    #print("Milling 5 cards...")
+    #print("")
+    #my_game.deck.top_to_deck(my_game.graveyard, 5)
+    #print("--- Graveyard ---")
+    #print(my_game.graveyard)
+    #print("")
+    #print("--- Player 1 ---")
+    #print("Drawing 5 cards...")
+    #my_game.player.draw(my_game.deck, 5)
+    #print(my_game.player)
+
+
+    # this is how specific games will be run by the main file
+    blackjack = open("blackjack.py")
+    exec(blackjack.read())
 
 main()
