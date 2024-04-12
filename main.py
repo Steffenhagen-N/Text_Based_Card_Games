@@ -53,7 +53,7 @@ class Card:
     def __eq__(self, card):
         return self.suit ==card.suit and self.rank == card.rank
 
-# think about adding a graveyard and a top to yard and reshuffle feature
+# think about adding a top to yard and reshuffle feature
 class Deck_of_Cards:
     def __init__(self, low = True):
         self.__deck = []
@@ -83,30 +83,43 @@ class Deck_of_Cards:
     def draw(self):
         return self.__deck.pop()
     
+    def top(self, card):
+        self.__deck.append(card)
+
+class Graveyard(Deck_of_Cards):
+    def __init__(self):
+        super().__init__()
+        self.__deck.clear()
+
+    
 # add discard function
 class Player:
     def __init__(self, name):
-        self.hand = []
+        self.__hand = []
         self.__name = name
+
+    def __repr__(self) -> str:
+        temp_hand = []
+        for card in self.__hand:
+            temp_hand.append(f"{card.rank} of {card.suit}")
+        return f"{self.__name}: {str(", " .join(temp_hand))}"
 
     def draw(self, deck, value = 1):
         for i in range(value):
-            self.hand.append(deck.draw())
+            self.__hand.append(deck.draw())
 
     def get_name(self):
         return self.__name
     
     def get_hand(self):
-        temp_hand = []
-        for card in self.hand:
-            temp_hand.append(f"{card.rank} of {card.suit}")
-        return ", " .join(temp_hand)
+        return self.__hand
         
 class Card_Game:
-    def __init__(self, low = True):
+    def __init__(self, player1 = "Player 1", player2 = "Dealer", low = True):
         self.deck = Deck_of_Cards(low)
-        self.player = Player("Player 1")
-        self.dealer = Player("The Dealer")
+        self.graveyard = Graveyard()
+        self.player = Player(player1)
+        self.dealer = Player(player2)
 
     def play(self):
         return ("There is nothing to play...")
@@ -118,11 +131,15 @@ def main():
     print("")
     print(my_game.deck)
     print("")
-    my_game.player.draw(my_game.deck, 5)
-    print(f"{my_game.player.get_name()} hand:")
-    print(my_game.player.get_hand())
+    print("Milling 5 cards...")
     print("")
-    print(f"Is {my_game.player.hand[0]} greater than {my_game.player.hand[1]}")
-    print(my_game.player.hand[0] > my_game.player.hand[0])
+    my_game.deck.mill(my_game.graveyard, 5)
+    print("--- Graveyard ---")
+    print(my_game.graveyard)
+    print("")
+    print("--- Player 1 ---")
+    print("Drawing 5 cards...")
+    my_game.player.draw(my_game.deck, 5)
+    print(my_game.player)
 
 main()
