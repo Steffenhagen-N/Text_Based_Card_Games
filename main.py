@@ -54,13 +54,13 @@ class Deck_of_Cards:
         self.__deck = []
 
     # generates a full 52 card deck
-    def generate(self, low = False):
+    def generate(self, high = True):
         new_ranks = []
         for r in ranks:
             new_ranks.append(r)
         
         # changes low aces to high aces
-        if not low:
+        if high:
             new_ranks.remove("Ace")
             new_ranks.append("Ace")
 
@@ -109,37 +109,27 @@ class Player:
         return self.__hand
         
 class Card_Game:
-    def __init__(self,low = True):
+    def __init__(self, filepath, high = True):
+        self.__filepath = filepath
         self.deck = Deck_of_Cards()
-        self.deck.generate()
+        self.deck.generate(high)
         self.graveyard = Deck_of_Cards()
         self.player = Player("Player 1")
         self.dealer = Player("The Dealer")
 
-    def play(self):
-        return ("There is nothing to play...")
+    def run(self):
+        exec(open(self.__filepath).read())
+
+# list of all the games currently supported
+# allows for clean game.run() in main()
+blackjack = Card_Game("blackjack.py")
+go_fish = Card_Game("go_fish.py")
+games = [blackjack, go_fish]
 
 def main():
-    #my_game = Card_Game()
-    #my_game.deck.shuffle()
-    #print("--- Deck ---")
-    #print("")
-    #print(my_game.deck)
-    #print("")
-    #print("Milling 5 cards...")
-    #print("")
-    #my_game.deck.top_to_deck(my_game.graveyard, 5)
-    #print("--- Graveyard ---")
-    #print(my_game.graveyard)
-    #print("")
-    #print("--- Player 1 ---")
-    #print("Drawing 5 cards...")
-    #my_game.player.draw(my_game.deck, 5)
-    #print(my_game.player)
-
-
     # this is how specific games will be run by the main file
-    blackjack = open("blackjack.py")
-    exec(blackjack.read())
+    blackjack.run()
+
+    go_fish.run()
 
 main()

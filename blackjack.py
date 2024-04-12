@@ -2,8 +2,7 @@
 #from main import Card, Card_Game, Deck_of_Cards
 # comment before running, for debugging only
 
-game = Card_Game()
-game.deck.shuffle()
-game.player.draw(game.deck, 5)
-print(game.player)
+game = Card_Game(None)
+
+print("hello from blackjack")
 #try to get to 21 without going over
