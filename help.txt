@@ -1,0 +1,1 @@
+plaintext explanation of main and sub-game commands and code

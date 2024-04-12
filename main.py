@@ -133,6 +133,10 @@ solitaire = Card_Game(None)
 war = Card_Game(None)
 games = [blackjack, go_fish]
 
+
+def greetings():
+    print("hello")
+
 def main():
     print("game status...")
     print("")
