@@ -148,7 +148,7 @@ class Card_Game:
 # allows for clean game.run() command in main.py
 blackjack = Card_Game("Blackjack", "blackjack.py")
 go_fish = Card_Game("Go Fish", "go_fish.py")
-solitaire = Card_Game("Solitaire", None)
+solitaire = Card_Game()
 war = Card_Game("War", None)
 games = [blackjack, go_fish, solitaire, war]
 
