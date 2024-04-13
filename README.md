@@ -15,9 +15,9 @@ Text_Based_Card_Games is currently in a prototype stage. No games are currently 
 -War
 
 
-## Main Class Functionality
+## Main Class Methods
 
-This is a list of all callable main class functions both currently implemented and planned. This section acts as a Help guide for implementation of additional games using the existing framework.
+This is a list of all callable main class methods both currently implemented and planned. This section acts as a Help guide for implementation of additional games using the existing framework.
 
 
 ### Card v.1.0
@@ -42,7 +42,7 @@ The Card class constructor creates public suit and rank variables, and private r
 
 #### Planned:
 
-As of Card v.1.0, no future functions or variables are planned.
+As of Card v.1.0, no future methods or variables are planned.
 
 
 ### Deck_of_Cards v.1.0
@@ -52,38 +52,38 @@ The Deck_of_Cards class constructor creates a single variable; an empty private 
 #### Implemented:
 
 > ```py
-> my_deck.generate(high = True):
+> my_deck.generate(high = True)
 > ```
-> Fills list my_deck.\__deck with all 52 cards ranked low to high. The deck is unordered in case future programs need an ordered list, so most fresh generations will need to be shuffled. The optional argument determines whether aces are considered high or low, which is stored directly in the respective ace Card object. This way, the same game instance can have low and high aces. By default, aces are high.
+> Fills list my_deck.\__deck with all 52 cards ranked low to high. The deck is unordered in case future methods or functions need an ordered list, so most fresh generations will need to be shuffled. The optional argument determines whether aces are considered high or low, which is stored directly in the respective ace Card object. This way, the same game instance can have low and high aces. By default, aces are high.
 
 >```py
-> my_deck.get_deck():
+> my_deck.get_deck()
 > ```
 > Returns list my_deck.\__deck.
 
 > ```py
-> my_deck.shuffle(optional_deck = None):
+> my_deck.shuffle(optional_deck = None)
 > ```
 > Shuffles list my_deck.\__deck. The optional argument allows for another optional_deck (without .\__deck suffix) to be shuffled into my_deck.\__deck. This can be used to shuffle the discard pile or hand into the main deck.
 
 > ```py
-> my_deck.draw():
+> my_deck.draw()
 > ```
-> Pops the top card of my_deck. This isn't how players should draw cards, this function is mainly used to facilitate other functions. 
+> Pops the top card of my_deck. This isn't how players should draw cards, this method is mainly used to facilitate other methods. 
 
 > ```py
-> my_deck.to_top(my_card):
+> my_deck.to_top(my_card)
 > ```
-> Puts Card my_card on top of my_deck.\__deck. Like .draw(), this function is mainly used for other functions, but has some applicability in returning cards from a player hand to the main deck.
+> Puts Card my_card on top of my_deck.\__deck. Like .draw(), this method is mainly used for other method, but has some applicability in returning cards from a player hand to the main deck.
 
 > ```py
-> my_deck.top_to_deck(target_deck, value = 1):
+> my_deck.top_to_deck(target_deck, value = 1)
 > ```
-> Transfers cards from the top of my_deck to the top of Deck target_deck. The function defaults to a single card, but has the ability to transfer multiple cards (e.g. putting the top 10 cards of the main deck into the graveyard). If my_deck runs out of cards in the middle of the loop, the loop breaks and prints "Out of cards!".
+> Transfers cards from the top of my_deck to the top of Deck target_deck. The method defaults to a single card, but has the ability to transfer multiple cards (e.g. putting the top 10 cards of the main deck into the graveyard). If my_deck runs out of cards in the middle of the loop, the loop breaks and prints "Out of cards!".
 
 #### Planned:
 
-As of Deck_of_Cards v.1.0, no future functions or variables are planned.
+As of Deck_of_Cards v.1.0, no future methods or variables are planned.
 
 
 ### Player v.0.1
@@ -93,9 +93,65 @@ The Player class constructor creates two private variables; a hand classified as
 #### Implemented:
 
 > ```py
-> player1.draw(my_deck, value = 1):
+> player1.draw(my_deck, value = 1)
 > ```
-> The top x cards of my_deck (without .\__deck suffix) are put into the hand of player1. 
+> The top x cards of my_deck (without .\__deck suffix) are put into the hand of player1.
+> If the deck runs out of cards in the middle of the loop, the loop breaks and prints "No more cards!"
+
+> ```py
+> player1.get_name()
+> ```
+> Returns player1.\__name
+
+> ```py
+> player1.get_hand()
+> ```
+> Returns player1.\__hand
+
+#### Planned:
+
+As of Player v.0.1, the following methods are planned:
+- method to discard a specific card from the player hand
+- method to find combined Card.\__rank_value of hand
 
 
 ### Card_Game v.0.1
+
+The Card_Game class constructor creates an optional private variable for the filepath to the program, and a public variable for the game name. When called or printed, Games return a string of their name.
+
+#### Implemented:
+
+> ```py
+> new_game.initialize(player_name = "Player 1", high = True)
+> ```
+> Creates and generates new_game.deck (defaulted to high aces), an empty Deck_of_Cards graveyard, and Players "Player 1" and "The Dealer".
+> These are created outside of the constructor as to preserve computational power. Decks are generated when they are needed, not all at once when the program boots. This problem would compound as the game gets larger.
+
+> ```py
+> new_game.run()
+> ```
+> Opens and executes new_game.\__filepath.
+
+#### Planned:
+
+As of Card_Game v.0.1, the following methods are planned:
+- method to reset the game back to the initialized state and replay
+- variable tracking player score
+- method returning player score
+
+
+## Main Functions and Variables
+
+These functions pertain to the operation of the menu and launcher inside the main() function.
+
+#### Implemented:
+
+- all supported games are initially constructed and stored in a games list.
+
+#### Planned:
+
+As of Build v.0.0.1, the following functions and variables are planned:
+- function or set of functions to operate a game launcher
+- variable to store player name in the main menu, so the player doesn't have to re-enter their name when switching games
+- file to store high scores
+- prototype user interface
