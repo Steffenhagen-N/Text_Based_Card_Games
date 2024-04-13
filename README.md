@@ -54,6 +54,6 @@ The Deck_of_Cards class constructor creates a single variable, an empty private 
 > ```py
 > my_deck.generate(high = True):
 > ```
-> The generate function fills the Deck\__deck list with a full 52 card deck ranked low to high. The deck is unordered in case future programs need an ordered list, so most fresh generations will need to be shuffled. The optional argument determines whether aces are considered high or low, which is stored directly in the respective ace Card object. This way, the same game can have low and high aces. By default, aces are high.
+> The generate function fills the Deck.\__deck list with a full 52 card deck ranked low to high. The deck is unordered in case future programs need an ordered list, so most fresh generations will need to be shuffled. The optional argument determines whether aces are considered high or low, which is stored directly in the respective ace Card object. This way, the same game can have low and high aces. By default, aces are high.
 
 ### Player v.0.1
