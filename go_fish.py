@@ -6,7 +6,7 @@ game = go_fish
 
 game.initialize()
 game.deck.shuffle()
-game.player.draw(game.deck, 5)
+game.player.draw(game.deck, 60)
 print(game.player)
 
 # try to make as many books as possible

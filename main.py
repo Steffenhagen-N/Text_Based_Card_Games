@@ -25,7 +25,7 @@ class Card:
 
     # aces will always have a rank value of 1
     # specific programs have to compensate if aces are 
-    # supposed to be worth 11
+    # supposed to be worth 11 instead
     def __add__(self, card):
         return self.__rank_value + card.__rank_value
     
@@ -82,14 +82,19 @@ class Deck_of_Cards:
 
     def draw(self):
         return self.__deck.pop()
-    
+
     def to_top(self, card):
         self.__deck.append(card)
 
     # puts the top x cards from deck on top of target deck
     def top_to_deck(self, target, value = 1):
         for i in range(value):
-            target.to_top(self.draw())
+            try:
+                target.to_top(self.draw())
+            except:
+                print("Out of cards!")
+                break
+
     
 # add discard function
 class Player:
@@ -105,7 +110,11 @@ class Player:
     # adds the top x cards from target deck to player hand
     def draw(self, deck, value = 1):
         for i in range(value):
-            self.__hand.to_top(deck.draw())
+            try:
+                self.__hand.to_top(deck.draw())
+            except:
+                print("No more cards!")
+                break
 
     def get_name(self):
         return self.__name
@@ -114,16 +123,19 @@ class Player:
         return self.__hand
         
 class Card_Game:
-    def __init__(self, name = None, filepath = None):
+    def __init__(self, name = "New Game", filepath = None):
         self.__filepath = filepath
         self.name = name
+        self.deck = Deck_of_Cards()
+
+    def __repr__(self):
+        return f"{self.name}"
 
     # prepares basic game objects with customizable
     # player name and ace strength
     # separate initialization command keeps main.py from 
     # constructing unneeded game objects
     def initialize(self, player_name = "Player 1", high = True):
-        self.deck = Deck_of_Cards()
         self.deck.generate(high)
         self.graveyard = Deck_of_Cards()
         self.player = Player(player_name)
@@ -143,9 +155,8 @@ games = [blackjack, go_fish, solitaire, war]
 def main():
     for g in games:
         try:
-            print(f"attempting {g.name}, drawing hand...")
             g.run()
         except:
-            print(f"something went wrong, {g.name} failed...")
+            print(f"Error: {g} not responding...")
 
 main()
