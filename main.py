@@ -95,8 +95,6 @@ class Deck_of_Cards:
                 print("Out of cards!")
                 break
 
-    
-# add discard function
 class Player:
     def __init__(self, name = None):
         self.__hand = Deck_of_Cards()
@@ -126,7 +124,6 @@ class Card_Game:
     def __init__(self, name = "New Game", filepath = None):
         self.__filepath = filepath
         self.name = name
-        self.deck = Deck_of_Cards()
 
     def __repr__(self):
         return f"{self.name}"
@@ -136,6 +133,7 @@ class Card_Game:
     # separate initialization command keeps main.py from 
     # constructing unneeded game objects
     def initialize(self, player_name = "Player 1", high = True):
+        self.deck = Deck_of_Cards()
         self.deck.generate(high)
         self.graveyard = Deck_of_Cards()
         self.player = Player(player_name)
