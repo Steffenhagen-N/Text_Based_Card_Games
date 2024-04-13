@@ -25,10 +25,10 @@ The Card class constructor creates public suit and rank variables, and private r
 #### Implemented:
 
 ```py
-Card1 + Card2 = int
-Card1 - Card2 = int
+Card1 + Card2 = int()
+Card1 - Card2 = int()
 ```
-Addition and subtraction compare the private card rank value variable and return one integer. Rank value for face cards are naturally set to 10, and ace cards are set to 1. #######
+Addition and subtraction compare the private card rank value variable and return one integer. Rank value for face cards are naturally set to 10, and ace cards are set to 1. 
 
 
 ### Deck_of_Cards v.0.1
