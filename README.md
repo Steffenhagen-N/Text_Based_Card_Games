@@ -24,12 +24,12 @@ The Card class constructor creates public suit and rank variables, and private r
 
 #### Implemented:
 
-```py
-Card1 + Card2 >>> int()
-Card1 - Card2 >>> int()
-```
-Addition and subtraction compare the two private card.\__rank_value variables and return one integer. Rank value for face cards are naturally set to 10, and ace cards are set to 1. This is used in blackjack.py to determine the numerical value of dealt cards.
----
+> ```py
+> Card1 + Card2 >>> int()
+> Card1 - Card2 >>> int()
+> ```
+> Addition and subtraction compare the two private card.\__rank_value variables and return one integer. Rank value for face cards are naturally set to 10, and ace cards are set to 1. This is used in blackjack.py to determine the numerical value of dealt cards.
+
 ```py
 Card1 > Card2 >>> bool()
 Card1 < Card2 >>> bool()
