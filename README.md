@@ -20,12 +20,13 @@ This is a list of all callable main class functions both currently implemented a
 
 ### Card v.1.0
 
-The Card class constructor creates public suit and rank variables, and private rank value, rank index, and suit index variables. When the class is returned or printed, it will return as "{rank} of {suit}". Cards have no callable methods, but arithmatic operators have been overloaded:
+The Card class constructor creates public suit and rank variables, and private rank value, rank index, and suit index variables. When the class is returned or printed, it will return as "{rank} of {suit}". Cards have no callable methods, but arithmatic operators have been overloaded.
 
 #### Implemented:
 
 ```py
-Card1 + Card2 or Card1 - Card2
+Card1 + Card2 = int
+Card1 - Card2 = int
 ```
 Addition and subtraction compare the private card rank value variable and return one integer. Rank value for face cards are naturally set to 10, and ace cards are set to 1. #######
 
