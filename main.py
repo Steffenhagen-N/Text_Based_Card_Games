@@ -40,20 +40,23 @@ class Card:
     def __lt__(self, card):
         if self.rank == card.rank:
             return self.__suit_index < card.__suit_index
-        if self.rank == "Ace":
-            return False
-        if card.rank == "Ace":
-            return True
         return self.__rank_index < card.__rank_index
 
     def __eq__(self, card):
-        return self.suit ==card.suit and self.rank == card.rank
+        return self.suit == card.suit and self.rank == card.rank
 
 class Deck_of_Cards:
     def __init__(self):
         self.__deck = []
 
-    # generates a full 52 card deck
+    # prints deck as a single string rather than a list
+    def __repr__(self):
+        deck_list = []
+        for card in self.__deck:
+            deck_list.append(card.__repr__())
+        return f"-{len(self.__deck)} cards- {", " .join(deck_list)}"
+
+    # generates a sorted full 52 card deck from low to high
     def generate(self, high = True):
         new_ranks = []
         for r in ranks:
@@ -67,18 +70,11 @@ class Deck_of_Cards:
         for suit in suits:
             for rank in new_ranks:
                 self.__deck.append(Card(suit, rank))
-
-    # prints deck as a single string rather than a list
-    def __repr__(self):
-        deck_list = []
-        for card in self.__deck:
-            deck_list.append(card.__repr__())
-        return f"{len(self.__deck)} cards: {", " .join(deck_list)}"
     
     def get_deck(self):
         return self.__deck
-
-    # add optioinal shuffle two decks together
+    
+    # shuffle feature can optionally shuffle two decks together
     def shuffle(self, target = None):
         if target != None:
             target.top_to_deck(self, len(target.get_deck()))
@@ -90,19 +86,23 @@ class Deck_of_Cards:
     def to_top(self, card):
         self.__deck.append(card)
 
+    # puts the top x cards from deck on top of target deck
     def top_to_deck(self, target, value = 1):
         for i in range(value):
             target.to_top(self.draw())
     
 # add discard function
 class Player:
-    def __init__(self, name):
+    def __init__(self, name = None):
         self.__hand = Deck_of_Cards()
         self.__name = name
 
     def __repr__(self):
+        if self.__name == None:
+            return f"Player: {self.__hand.__repr__()}"
         return f"{self.__name}: {self.__hand.__repr__()}"
 
+    # adds the top x cards from target deck to player hand
     def draw(self, deck, value = 1):
         for i in range(value):
             self.__hand.to_top(deck.draw())
@@ -114,70 +114,38 @@ class Player:
         return self.__hand
         
 class Card_Game:
-    def __init__(self, filepath, high = True):
+    def __init__(self, name = None, filepath = None):
         self.__filepath = filepath
+        self.name = name
+
+    # prepares basic game objects with customizable
+    # player name and ace strength
+    # separate initialization command keeps main.py from 
+    # constructing unneeded game objects
+    def initialize(self, player_name = "Player 1", high = True):
         self.deck = Deck_of_Cards()
         self.deck.generate(high)
         self.graveyard = Deck_of_Cards()
-        self.player = Player("Player 1")
+        self.player = Player(player_name)
         self.dealer = Player("The Dealer")
 
     def run(self):
         exec(open(self.__filepath).read())
 
 # list of all the games currently supported
-# allows for clean game.run() in main()
-blackjack = Card_Game("blackjack.py")
-go_fish = Card_Game("go_fish.py")
-solitaire = Card_Game(None)
-war = Card_Game(None)
-games = [blackjack, go_fish]
-
-
-def greetings():
-    print("hello")
+# allows for clean game.run() command in main.py
+blackjack = Card_Game("Blackjack", "blackjack.py")
+go_fish = Card_Game("Go Fish", "go_fish.py")
+solitaire = Card_Game("Solitaire", None)
+war = Card_Game("War", None)
+games = [blackjack, go_fish, solitaire, war]
 
 def main():
-    print("game status...")
-    print("")
-    # this is how specific games will be run by the main file
-    #blackjack.run()
-    #go_fish.run()
     for g in games:
-        g.run()
-        
-    print("")
-
-    print("--- testing new game ---")
-    print("")
-    print("generating deck...")
-    print("")
-    my_game = Card_Game(None)
-    print("--- deck ---")
-    print(my_game.deck)
-    print("")
-    print("shuffling...")
-    print("")
-    my_game.deck.shuffle()
-    print("--- deck ---")
-    print(my_game.deck)
-    print("")
-    print("milling several cards...")
-    my_game.deck.top_to_deck(my_game.graveyard, 10)
-    print("")
-    print("--- deck ---")
-    print(my_game.deck)
-    print("")
-    print("--- graveyard ---")
-    print(my_game.graveyard)
-    print("")
-    print("reshuffling deck and graveyard...")
-    print("")
-    my_game.deck.shuffle(my_game.graveyard)
-    print("--- deck ---")
-    print(my_game.deck)
-    print("")
-    print("--- graveyard ---")
-    print(my_game.graveyard)
+        try:
+            print(f"attempting {g.name}, drawing hand...")
+            g.run()
+        except:
+            print(f"something went wrong, {g.name} failed...")
 
 main()
