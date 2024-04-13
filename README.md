@@ -36,9 +36,10 @@ The Card class constructor creates public suit and rank variables, and private r
 > my_card1 > my_card2 >>> bool()
 > my_card1 < my_card2 >>> bool()
 > my_card1 = my_card2 >>> bool()
-> # Greater than and less than return a boolean value comparing the Card.\__rank_index variables of both cards. If the rank indexes are equal, it will compare the Card.\__suit_index variables instead.
-> For example, ("6 of Hearts" > "6 of Clubs") will return True.
 > ```
+> Greater than and less than return a boolean value comparing the Card.\__rank_index variables of both cards. If the rank indexes are equal, it will compare the Card.\__suit_index variables instead.
+> For example, ("6 of Hearts" > "6 of Clubs") will return True.
+
 
 #### Planned:
 
