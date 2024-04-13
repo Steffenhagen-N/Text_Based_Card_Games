@@ -54,6 +54,30 @@ The Deck_of_Cards class constructor creates a single variable, an empty private 
 > ```py
 > my_deck.generate(high = True):
 > ```
-> The generate function fills the Deck.\__deck list with a full 52 card deck ranked low to high. The deck is unordered in case future programs need an ordered list, so most fresh generations will need to be shuffled. The optional argument determines whether aces are considered high or low, which is stored directly in the respective ace Card object. This way, the same game can have low and high aces. By default, aces are high.
+> Fills list my_deck.\__deck with all 52 cards ranked low to high. The deck is unordered in case future programs need an ordered list, so most fresh generations will need to be shuffled. The optional argument determines whether aces are considered high or low, which is stored directly in the respective ace Card object. This way, the same game instance can have low and high aces. By default, aces are high.
 
+>```py
+> my_deck.get_deck():
+> ```
+> Returns list my_deck.\__deck.
+
+> ```py
+> my_deck.shuffle(optional_deck = None):
+> ```
+> Shuffles list my_deck.\__deck. The optional argument allows for another Deck_of_Cards (without .\__list suffix) to be shuffled into my_deck.\__deck. This can be used to shuffle the discard pile or hand into the main deck.
+
+> ```py
+> my_deck.draw():
+> ```
+> Pops the top card of my_deck. This isn't how players should draw cards, this function is mainly used to facilitate other functions. 
+
+> ```py
+> my_deck.to_top(Card):
+> ```
+> Puts the selected Card on top of my_deck.\__deck. Like .draw(), this function is mainly used for other functions, but has some applicability in returning cards from a player hand to the main deck.
+
+> ```py
+> my_deck.top_to_deck(target_deck, value = 1):
+> ```
+> Transfers cards from deck to deck. The function defaults to a single card, but has the ability to 
 ### Player v.0.1
